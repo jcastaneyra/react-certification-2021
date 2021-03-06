@@ -15,7 +15,7 @@ const Home = () => {
         .get('/search', {
           params: {
             q: search,
-            maxResults: 5,
+            maxResults: 25,
           },
         })
         .then((response) => {
