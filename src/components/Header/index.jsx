@@ -1,7 +1,13 @@
 import React from 'react';
 import Styled from './styled';
 
-const Header = () => {
+const Header = ({search, setSearch}) => {
+  const handleSearch = (event) => {
+    event.preventDefault();
+    console.log(event.target.value);
+    setSearch(event.target.value);
+  }
+
   return (
     <Styled.Nav>
       <Styled.NavContainer>
@@ -19,7 +25,7 @@ const Header = () => {
               d="M4 6h16M4 12h16M4 18h16"
             />
           </Styled.Icon>
-          <Styled.NavSearch type="text" placeholder="Search ..." />
+          <Styled.NavSearch type="text" placeholder="Search ..." value={search} onChange={handleSearch}/>
         </Styled.NavMenu>
 
         <Styled.Icon
