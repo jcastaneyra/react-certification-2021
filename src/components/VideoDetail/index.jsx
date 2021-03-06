@@ -19,7 +19,7 @@ const VideoDetail = ({ items, current, setCurrent }) => {
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            title={`current.snippet.title`}
+            title="current.snippet.title"
           />
         </Styled.VideoPlayerContainer>
         <Styled.Title>{current.snippet.title}</Styled.Title>

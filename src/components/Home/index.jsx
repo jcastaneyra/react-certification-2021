@@ -23,17 +23,20 @@ const Home = () => {
           setItems(response.data.items);
         });
     }, 1000);
-    //cleanUp function
+    // cleanUp function
     return () => {
       clearTimeout(debounceHandler);
     };
-
   }, [search]);
 
   return (
     <div>
-      <Header search={search} setSearch={setSearch}/>
-      { current === null ? <Content items={items} setCurrent={setCurrent} /> : <VideoDetail items={items} current={current} setCurrent={setCurrent}/> }
+      <Header search={search} setSearch={setSearch} />
+      {current === null ? (
+        <Content items={items} setCurrent={setCurrent} />
+      ) : (
+        <VideoDetail items={items} current={current} setCurrent={setCurrent} />
+      )}
     </div>
   );
 };
