@@ -1,8 +1,10 @@
 import React from 'react';
 import Styled from './styled';
 import VideoCard from '../VideoCard';
+import { SearchContext } from '../../state/SearchProvider'
 
-const VideoDetail = ({ items, current, setCurrent }) => {
+const VideoDetail = ({ current, setCurrent }) => {
+  const { items } = React.useContext(SearchContext);
   const showVideoDetail = (item) => {
     console.log(item);
     setCurrent(item);

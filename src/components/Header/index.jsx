@@ -1,7 +1,31 @@
 import React from 'react';
 import Styled from './styled';
+import youtube from '../../apis/youtube';
+import { SearchContext } from '../../state/SearchProvider'
 
-const Header = ({ search, setSearch }) => {
+const Header = () => {
+  const { search, setSearch, setItems } = React.useContext(SearchContext)
+
+  React.useEffect(() => {
+    const debounceHandler = setTimeout(() => {
+      youtube
+        .get('/search', {
+          params: {
+            q: search,
+            maxResults: 25,
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          setItems(response.data.items);
+        });
+    }, 1000);
+    // cleanUp function
+    return () => {
+      clearTimeout(debounceHandler);
+    };
+  }, [search, setSearch, setItems]);
+
   const handleSearch = (event) => {
     event.preventDefault();
     console.log(event.target.value);
