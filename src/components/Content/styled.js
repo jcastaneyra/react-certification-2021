@@ -8,5 +8,21 @@ const Container = styled.div`
   padding: 0px 50px;
 `;
 
-const Styled = { Container };
+const VideoScreenshotContainer = styled.div`
+  width: 20%;
+
+  @media screen and (max-width: 1400px) {
+    width: 30%;
+  }
+
+  @media screen and (max-width: 1024px) {
+    width: 40%;
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 80%;
+  }
+`;
+
+const Styled = { Container, VideoScreenshotContainer };
 export default Styled;

@@ -4,19 +4,7 @@ const Container = styled.div`
   border: 1px solid #cccccc;
   border-radius: 5px;
   margin: 10px;
-  width: 20%;
-
-  @media screen and (max-width: 1400px) {
-    width: 30%;
-  }
-
-  @media screen and (max-width: 1024px) {
-    width: 40%;
-  }
-
-  @media screen and (max-width: 600px) {
-    width: 80%;
-  }
+  cursor: pointer;
 `;
 
 const Img = styled.div`
