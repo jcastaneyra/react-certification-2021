@@ -10,12 +10,12 @@ const Home = () => {
   return (
     <div>
       <SearchProvider>
-        <Header/>
-      {current === null ? (
-        <Content setCurrent={setCurrent} />
-      ) : (
-        <VideoDetail current={current} setCurrent={setCurrent} />
-      )}
+        <Header />
+        {current === null ? (
+          <Content setCurrent={setCurrent} />
+        ) : (
+          <VideoDetail current={current} setCurrent={setCurrent} />
+        )}
       </SearchProvider>
     </div>
   );

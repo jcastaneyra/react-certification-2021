@@ -8,7 +8,7 @@ const SearchProvider = ({ children }) => {
 
   return (
     <SearchContext.Provider
-      values={{ search: search, setSearch: setSearch, items: items, setItems: setItems }}
+      value={{ search, setSearch, items, setItems }}
     >
       {children}
     </SearchContext.Provider>
