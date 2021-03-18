@@ -34,10 +34,9 @@ const VideoDetail = ({ items, current, setCurrent }) => {
               item.id.kind === 'youtube#video' && item.id.videoId !== current.id.videoId
           )
           .map((item) => (
-            <Styled.VideoScreenshotContainer>
+            <Styled.VideoScreenshotContainer key={item.id.videoId}>
               <VideoCard
                 onClick={() => showVideoDetail(item)}
-                key={item.id.videoId}
                 title={item.snippet.title}
                 url={item.snippet.thumbnails.medium.url}
               />
