@@ -1,0 +1,29 @@
+
+> react-certification-2020@0.1.0 test:coverage /Users/jose.castaneyra/projects/personal/workshops/react-certification-2021
+> npm test -- --coverage --watchAll --coverageThreshold='{"global":{"statements":60}}'
+
+
+> react-certification-2020@0.1.0 test /Users/jose.castaneyra/projects/personal/workshops/react-certification-2021
+> react-scripts test "--coverage" "--watchAll" "--coverageThreshold={\"global\":{\"statements\":60}}"
+
+--------------------------|----------|----------|----------|----------|-------------------|
+File                      |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
+--------------------------|----------|----------|----------|----------|-------------------|
+All files                 |    96.43 |      100 |      100 |    96.43 |                   |
+ src                      |    66.67 |      100 |      100 |    66.67 |                   |
+  App.jsx                 |      100 |      100 |      100 |      100 |                   |
+  index.jsx               |        0 |      100 |      100 |        0 |                 6 |
+ src/components/Content   |      100 |      100 |      100 |      100 |                   |
+  index.jsx               |      100 |      100 |      100 |      100 |                   |
+  styled.js               |      100 |      100 |      100 |      100 |                   |
+ src/components/Header    |      100 |      100 |      100 |      100 |                   |
+  index.jsx               |      100 |      100 |      100 |      100 |                   |
+  styled.js               |      100 |      100 |      100 |      100 |                   |
+ src/components/Home      |      100 |      100 |      100 |      100 |                   |
+  index.jsx               |      100 |      100 |      100 |      100 |                   |
+ src/components/VideoCard |      100 |      100 |      100 |      100 |                   |
+  index.jsx               |      100 |      100 |      100 |      100 |                   |
+  styled.js               |      100 |      100 |      100 |      100 |                   |
+--------------------------|----------|----------|----------|----------|-------------------|
+
+

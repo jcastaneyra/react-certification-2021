@@ -18,6 +18,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:coverage": "npm test -- --coverage --watchAll --coverageThreshold='{\"global\":{\"statements\":70}}'",
     "eject": "react-scripts eject",
     "lint": "eslint ./src --ext .js,.jsx",
     "lint:fix": "eslint ./src --ext .js,.jsx --fix"
@@ -60,5 +61,11 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.{js,jsx}",
+      "!<rootDir>/node_modules/**"
+    ]
   }
 }
