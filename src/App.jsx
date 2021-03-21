@@ -1,6 +1,7 @@
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import Home from './components/Home';
+import SearchProvider from './state/SearchProvider';
 
 const GlobalStyles = createGlobalStyle`
   *{
@@ -14,8 +15,10 @@ const GlobalStyles = createGlobalStyle`
 export default function App() {
   return (
     <div className="App">
-      <GlobalStyles />
-      <Home />
+      <SearchProvider>
+        <GlobalStyles />
+        <Home />
+      </SearchProvider>
     </div>
   );
 }

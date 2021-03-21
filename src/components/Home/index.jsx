@@ -2,21 +2,20 @@ import React from 'react';
 import Header from '../Header';
 import Content from '../Content';
 import VideoDetail from '../VideoDetail';
-import SearchProvider from '../../state/SearchProvider';
+import { useSearch } from '../../state/SearchProvider'
 
 const Home = () => {
-  const [current, setCurrent] = React.useState(null);
+  const { state } = useSearch();
+  const { selectedVideo } = state;
 
   return (
     <div>
-      <SearchProvider>
         <Header />
-        {current === null ? (
-          <Content setCurrent={setCurrent} />
+        {selectedVideo === null ? (
+          <Content />
         ) : (
-          <VideoDetail current={current} setCurrent={setCurrent} />
+          <VideoDetail />
         )}
-      </SearchProvider>
     </div>
   );
 };

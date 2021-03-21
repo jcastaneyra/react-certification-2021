@@ -1,13 +1,18 @@
 import React from 'react';
 import Styled from './styled';
 import VideoCard from '../VideoCard';
-import { SearchContext } from '../../state/SearchProvider'
+import { useSearch } from '../../state/SearchProvider';
 
-const VideoDetail = ({ current, setCurrent }) => {
-  const { items } = React.useContext(SearchContext);
+const VideoDetail = () => {
+  const { state, dispatch } = useSearch();
+  const { videos, selectedVideo } = state;
   const showVideoDetail = (item) => {
-    console.log(item);
-    setCurrent(item);
+    dispatch({
+      type: 'SET_SELECTED_VIDEO',
+      payload: {
+        selectedVideo: item,
+      },
+    });
   };
 
   return (
@@ -17,23 +22,24 @@ const VideoDetail = ({ current, setCurrent }) => {
           <Styled.VideoPlayer
             height="315"
             width="560"
-            src={`https://www.youtube.com/embed/${current.id.videoId}`}
+            src={`https://www.youtube.com/embed/${selectedVideo.id.videoId}`}
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            title="current.snippet.title"
+            title="selectedVideo.snippet.title"
           />
         </Styled.VideoPlayerContainer>
-        <Styled.Title>{current.snippet.title}</Styled.Title>
+        <Styled.Title>{selectedVideo.snippet.title}</Styled.Title>
         <Styled.Description>
-          <p>{current.snippet.description}</p>
+          <p>{selectedVideo.snippet.description}</p>
         </Styled.Description>
       </Styled.VideoContainer>
       <Styled.Side>
-        {items
+        {videos
           .filter(
             (item) =>
-              item.id.kind === 'youtube#video' && item.id.videoId !== current.id.videoId
+              item.id.kind === 'youtube#video' &&
+              item.id.videoId !== selectedVideo.id.videoId
           )
           .map((item) => (
             <Styled.VideoScreenshotContainer key={item.id.videoId}>
