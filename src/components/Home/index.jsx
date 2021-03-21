@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../Header';
 import Content from '../Content';
 import VideoDetail from '../VideoDetail';
-import { useSearch } from '../../state/SearchProvider'
+import { useSearch } from '../../state/SearchProvider';
 
 const Home = () => {
   const { state } = useSearch();
@@ -10,12 +10,8 @@ const Home = () => {
 
   return (
     <div>
-        <Header />
-        {selectedVideo === null ? (
-          <Content />
-        ) : (
-          <VideoDetail />
-        )}
+      <Header />
+      {selectedVideo === null ? <Content /> : <VideoDetail />}
     </div>
   );
 };

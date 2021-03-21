@@ -1,12 +1,12 @@
 import React from 'react';
 import Styled from './styled';
 import youtube from '../../apis/youtube';
-import { useSearch } from '../../state/SearchProvider'
+import { useSearch } from '../../state/SearchProvider';
 
 const Header = () => {
   const { dispatch } = useSearch();
-  const [search, setSearch] = React.useState("");
-  
+  const [search, setSearch] = React.useState('');
+
   React.useEffect(() => {
     const debounceHandler = setTimeout(() => {
       youtube
@@ -18,11 +18,11 @@ const Header = () => {
         })
         .then((response) => {
           dispatch({
-            type: "ADD_VIDEOS",
+            type: 'ADD_VIDEOS',
             payload: {
               videos: response.data.items,
-            }
-          })
+            },
+          });
         });
     }, 1000);
     // cleanUp function

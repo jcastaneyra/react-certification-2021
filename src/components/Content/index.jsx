@@ -1,7 +1,7 @@
 import React from 'react';
 import VideoCard from '../VideoCard';
 import Styled from './styled';
-import { useSearch } from '../../state/SearchProvider'
+import { useSearch } from '../../state/SearchProvider';
 
 const Content = () => {
   const { state, dispatch } = useSearch();
@@ -9,11 +9,11 @@ const Content = () => {
 
   const showVideoDetail = (item) => {
     dispatch({
-        type: "SET_SELECTED_VIDEO",
-        payload: {
-          selectedVideo: item,
-        }
-    })
+      type: 'SET_SELECTED_VIDEO',
+      payload: {
+        selectedVideo: item,
+      },
+    });
   };
 
   return (
