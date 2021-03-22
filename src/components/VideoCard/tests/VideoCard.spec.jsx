@@ -5,7 +5,7 @@ import VideoCard from '..';
 describe('VideoCard', () => {
   it('renders VideoCard', () => {
     const renderHeader = render(<VideoCard />);
-    const header = renderHeader.getByRole('videoCard');
+    const header = renderHeader.getByTestId('videoCard');
     expect(header).toBeTruthy();
   });
 });

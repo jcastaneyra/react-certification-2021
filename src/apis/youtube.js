@@ -3,7 +3,7 @@
 const youtubeSearch = async (search = 'wizeline') => {
   let videos = [];
   let error = null;
-  console.log(`invoking api with searh ${search}`);
+  console.log(`invoking api with search ${search}`);
   try {
     /* global gapi */
     /* eslint no-undef: "error" */

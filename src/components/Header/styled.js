@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Nav = styled.div`
-  background-color: #1c5476;
+  background-color: ${(props) => props.theme.headerBackgroundColor};
   color: #fff;
   padding: 0px 30px;
 `;
@@ -24,20 +24,51 @@ const NavSearch = styled.input`
   border: none;
   border-radius: 4px;
   color: #eaf4fa;
-  background: #226691;
+  background: ${(props) => props.theme.searchBackgroundColor};
   font-size: 0.8rem;
   width: 200px;
 
   ::placeholder {
-    color: #83bfe2;
+    color: ${(props) => props.theme.searchPlaceholder};
     opacity: 1;
   }
+`;
+
+const Controls = styled.div`
+  margin: 1em;
 `;
 
 const Icon = styled.svg`
   width: 24px;
   height: 24px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
-const Styled = { Nav, NavContainer, NavMenu, NavSearch, Icon };
+const IconTheme = styled(Icon)`
+  margin-right: 2em;
+`;
+
+const NavToggle = styled.div`
+  display: block;
+  padding: 1rem;
+  transition: 250ms ease background-color;
+  &:hover {
+    cursor: pointer;
+    background-color: skyblue;
+  }
+`;
+
+const Styled = {
+  Nav,
+  NavContainer,
+  NavMenu,
+  NavSearch,
+  Controls,
+  Icon,
+  IconTheme,
+  NavToggle,
+};
 export default Styled;

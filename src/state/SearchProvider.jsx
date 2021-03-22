@@ -4,6 +4,7 @@ import reducer from './SearchReducer';
 const initState = {
   videos: [],
   selectedVideo: null,
+  currentTheme: 'light',
 };
 
 const SearchContext = createContext();

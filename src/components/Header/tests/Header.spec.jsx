@@ -21,6 +21,6 @@ describe('Header', () => {
       </SearchProvider>
     );
     const header = renderHeader.container.querySelectorAll('svg');
-    expect(header.length).toBe(2);
+    expect(header.length).toBe(3);
   });
 });

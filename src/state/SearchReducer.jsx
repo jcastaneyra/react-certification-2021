@@ -10,6 +10,11 @@ export default function reducer(state, action) {
         ...state,
         selectedVideo: action.payload.selectedVideo,
       };
+    case 'TOGGLE_THEME':
+      return {
+        ...state,
+        currentTheme: state.currentTheme === 'light' ? 'dark' : 'light',
+      };
     default:
       throw new Error('Unkown action');
   }

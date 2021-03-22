@@ -1,4 +1,5 @@
 import React from 'react';
+import Styled from './styled';
 import Header from '../Header';
 import VideoList from '../VideoList';
 import VideoDetail from '../VideoDetail';
@@ -9,10 +10,10 @@ const Home = () => {
   const { selectedVideo } = state;
 
   return (
-    <div>
+    <Styled.Container>
       <Header />
       {selectedVideo === null ? <VideoList /> : <VideoDetail />}
-    </div>
+    </Styled.Container>
   );
 };
 
