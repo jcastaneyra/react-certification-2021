@@ -16,7 +16,7 @@ const VideoDetail = () => {
   };
 
   return (
-    <Styled.Container>
+    <Styled.Container data-testid="videoDetail">
       <Styled.VideoContainer>
         <Styled.VideoPlayerContainer>
           <Styled.VideoPlayer

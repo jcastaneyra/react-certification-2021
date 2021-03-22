@@ -1,12 +1,23 @@
-import axios from 'axios';
+// import mockData from '../youtube-videos-mock.json';
 
-const axiosCall = axios.create({
-  baseURL: 'https://www.googleapis.com/youtube/v3/',
-  params: {
-    part: 'snippet',
-    maxResults: 25,
-    key: `${process.env.REACT_APP_API_KEY}`,
-  },
-});
+const youtubeSearch = async (search = 'wizeline') => {
+  let videos = [];
+  let error = null;
+  console.log(`invoking api with searh ${search}`);
+  try {
+    /* global gapi */
+    /* eslint no-undef: "error" */
+    const { result } = await gapi.client.request({
+      path: `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${search}&maxResults=25&regionCode=MX&key=${process.env.REACT_APP_API_KEY}`,
+    });
+    videos = result.items;
+    // videos = mockData.items;
+  } catch (reason) {
+    console.log(reason);
+    error = reason;
+  }
 
-export default axiosCall;
+  return [videos, error];
+};
+
+export default youtubeSearch;

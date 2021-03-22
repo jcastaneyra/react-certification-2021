@@ -17,7 +17,7 @@ const Content = () => {
   };
 
   return (
-    <Styled.Container>
+    <Styled.Container data-testid="content">
       {videos
         .filter((item) => item.id.kind === 'youtube#video')
         .map((item) => (

@@ -1,10 +1,11 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Home from '.';
+import SearchProvider from '../../../state/SearchProvider';
+import Home from '../index';
 
 describe('Home', () => {
   beforeEach(() => {
-    render(<Home />);
+    render(<SearchProvider><Home /></SearchProvider>);
   });
 
   it('renders Home and its elements', () => {

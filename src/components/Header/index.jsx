@@ -1,39 +1,34 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Styled from './styled';
-import youtube from '../../apis/youtube';
+import youtubeSearch from '../../apis/youtube';
+import useDebounce from '../../hooks/useDebounce';
 import { useSearch } from '../../state/SearchProvider';
 
 const Header = () => {
   const { dispatch } = useSearch();
   const [search, setSearch] = React.useState('');
+  const debouncedSearchTerm = useDebounce(search, 500);
 
+  const callSearch = useCallback(async (searchTerm) => {
+    const [videos, error] = await youtubeSearch(searchTerm);
+    if (!error) {
+      dispatch({
+              type: 'ADD_VIDEOS',
+              payload: {
+                videos: videos,
+              },
+            });
+    }
+  }, [dispatch]); 
+  
   React.useEffect(() => {
-    const debounceHandler = setTimeout(() => {
-      youtube
-        .get('/search', {
-          params: {
-            q: search,
-            maxResults: 25,
-          },
-        })
-        .then((response) => {
-          dispatch({
-            type: 'ADD_VIDEOS',
-            payload: {
-              videos: response.data.items,
-            },
-          });
-        });
-    }, 1000);
-    // cleanUp function
-    return () => {
-      clearTimeout(debounceHandler);
-    };
-  }, [search, dispatch]);
+    callSearch(debouncedSearchTerm)
+  }, [debouncedSearchTerm, callSearch]);
 
   const handleSearch = (event) => {
     event.preventDefault();
     setSearch(event.target.value);
+    console.log(search)
   };
 
   return (
