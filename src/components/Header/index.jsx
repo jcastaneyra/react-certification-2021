@@ -12,14 +12,28 @@ const Header = () => {
 
   const callSearch = useCallback(
     async (searchTerm) => {
-      const [videos, error] = await youtubeSearch(searchTerm);
-      if (!error) {
+      let counter = 0;
+      while (!gapi || (!gapi.client && counter < 10)) {
+        counter++;
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      }
+      /* global gapi */
+      /* eslint no-undef: "error" */
+      if (!gapi || !gapi.client || counter >= 10) {
         dispatch({
           type: 'ADD_VIDEOS',
-          payload: {
-            videos,
-          },
+          payload: [],
         });
+      } else {
+        const [videos, error] = await youtubeSearch(searchTerm);
+        if (!error) {
+          dispatch({
+            type: 'ADD_VIDEOS',
+            payload: {
+              videos,
+            },
+          });
+        }
       }
     },
     [dispatch]
