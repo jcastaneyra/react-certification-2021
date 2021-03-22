@@ -9,26 +9,29 @@ const Header = () => {
   const [search, setSearch] = React.useState('');
   const debouncedSearchTerm = useDebounce(search, 500);
 
-  const callSearch = useCallback(async (searchTerm) => {
-    const [videos, error] = await youtubeSearch(searchTerm);
-    if (!error) {
-      dispatch({
-              type: 'ADD_VIDEOS',
-              payload: {
-                videos: videos,
-              },
-            });
-    }
-  }, [dispatch]); 
-  
+  const callSearch = useCallback(
+    async (searchTerm) => {
+      const [videos, error] = await youtubeSearch(searchTerm);
+      if (!error) {
+        dispatch({
+          type: 'ADD_VIDEOS',
+          payload: {
+            videos,
+          },
+        });
+      }
+    },
+    [dispatch]
+  );
+
   React.useEffect(() => {
-    callSearch(debouncedSearchTerm)
+    callSearch(debouncedSearchTerm);
   }, [debouncedSearchTerm, callSearch]);
 
   const handleSearch = (event) => {
     event.preventDefault();
     setSearch(event.target.value);
-    console.log(search)
+    console.log(search);
   };
 
   return (

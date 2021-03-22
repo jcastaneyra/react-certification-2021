@@ -5,11 +5,15 @@ import Content from '../index';
 
 describe('Content', () => {
   beforeEach(() => {
-    render(<SearchProvider><Content /></SearchProvider>);
+    render(
+      <SearchProvider>
+        <Content />
+      </SearchProvider>
+    );
   });
 
   it('renders Content', () => {
-    const content = screen.getByTestId("content")
+    const content = screen.getByTestId('content');
     expect(content).toBeTruthy();
   });
 });

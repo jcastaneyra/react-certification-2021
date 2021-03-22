@@ -5,11 +5,15 @@ import Home from '../index';
 
 describe('Home', () => {
   beforeEach(() => {
-    render(<SearchProvider><Home /></SearchProvider>);
+    render(
+      <SearchProvider>
+        <Home />
+      </SearchProvider>
+    );
   });
 
   it('renders Home and its elements', () => {
-    const home = screen.getByPlaceholderText("Search ...");
+    const home = screen.getByPlaceholderText('Search ...');
     expect(home).toBeTruthy();
   });
 });
