@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
+import { useParams } from 'react-router-dom';
 import Styled from './styled';
 import VideoCard from '../VideoCard';
 import { useSearch } from '../../state/SearchProvider';
-import { useParams } from 'react-router-dom';
 import { youtubeGetVideoByID, youtubeRelatedVideos } from '../../apis/youtube';
 import LoadingSpinner from '../LoadingSpinner';
 
@@ -13,42 +13,42 @@ const VideoDetail = () => {
 
   const callSearchById = useCallback(
     async (videoIdParam) => {
-        const [video, error] = await youtubeGetVideoByID(videoIdParam);
-        if (!error) {
-          dispatch({
-            type: 'SET_SELECTED_VIDEO',
-            payload: {
-              selectedVideo: video,
-            },
-          });
-        }
+      const [video, error] = await youtubeGetVideoByID(videoIdParam);
+      if (!error) {
+        dispatch({
+          type: 'SET_SELECTED_VIDEO',
+          payload: {
+            selectedVideo: video,
+          },
+        });
+      }
     },
     [dispatch]
   );
 
   const callSearchByRelated = useCallback(
     async (videoIdParam) => {
-        const [result, error] = await youtubeRelatedVideos(videoIdParam);
-        if (!error) {
-          dispatch({
-            type: 'ADD_VIDEOS',
-            payload: {
-              videos: result,
-            },
-          });
-        }
+      const [result, error] = await youtubeRelatedVideos(videoIdParam);
+      if (!error) {
+        dispatch({
+          type: 'ADD_VIDEOS',
+          payload: {
+            videos: result,
+          },
+        });
+      }
     },
     [dispatch]
   );
 
   React.useEffect(() => {
-    if(!selectedVideo) {
-      callSearchById(videoId); 
+    if (!selectedVideo) {
+      callSearchById(videoId);
     }
-  }, [selectedVideo, callSearchById, videoId ]);
+  }, [selectedVideo, callSearchById, videoId]);
 
   React.useEffect(() => {
-    if(videos.length === 0) {
+    if (videos.length === 0) {
       callSearchByRelated(videoId);
     }
   }, [videos, callSearchByRelated, videoId]);
@@ -85,14 +85,10 @@ const VideoDetail = () => {
           </Styled.VideoContainer>
           <Styled.Side>
             {videos
-              .map((item) => (
-                item.id.videoId ? {...item, id: item.id.videoId} : {...item}
-              ))
-              .filter(
-                (item) =>
-                  item.snippet &&
-                  item.id !== selectedVideo.id
+              .map((item) =>
+                item.id.videoId ? { ...item, id: item.id.videoId } : { ...item }
               )
+              .filter((item) => item.snippet && item.id !== selectedVideo.id)
               .map((item) => (
                 <Styled.VideoScreenshotContainer key={item.id}>
                   <VideoCard

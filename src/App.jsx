@@ -1,10 +1,10 @@
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
+import { BrowserRouter as Router } from 'react-router-dom';
 import Home from './components/Home';
 import SearchProvider from './state/SearchProvider';
 import AppThemeProvider from './AppThemeProvider';
 // import { createBrowserHistory } from 'history';
-import { BrowserRouter as Router } from 'react-router-dom';
 
 const GlobalStyles = createGlobalStyle`
   *{
@@ -22,7 +22,7 @@ export default function App() {
   return (
     <div className="App">
       <SearchProvider>
-        <Router> 
+        <Router>
           <AppThemeProvider>
             <GlobalStyles />
             <Home />

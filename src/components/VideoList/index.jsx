@@ -38,27 +38,25 @@ const Content = () => {
 
   return (
     <Styled.Container data-testid="content">
-    { videos.length === 0 ? 
-      (
+      {videos.length === 0 ? (
         <LoadingSpinner />
-      ) :
-      (
-        videos.map((item) => (
-          item.id.videoId ? {...item, id: item.id.videoId} : {...item}
-        ))
-        .map((item) => (
-          <Styled.VideoScreenshotContainer key={item.id}>
-            <VideoCard
-              to={`/player/${item.id}`}
-              onClick={() => showVideoDetail(item)}
-              title={item.snippet.title}
-              description={item.snippet.description}
-              url={item.snippet.thumbnails.medium.url}
-            />
-          </Styled.VideoScreenshotContainer>
-        ))
-        )
-      }
+      ) : (
+        videos
+          .map((item) =>
+            item.id.videoId ? { ...item, id: item.id.videoId } : { ...item }
+          )
+          .map((item) => (
+            <Styled.VideoScreenshotContainer key={item.id}>
+              <VideoCard
+                to={`/player/${item.id}`}
+                onClick={() => showVideoDetail(item)}
+                title={item.snippet.title}
+                description={item.snippet.description}
+                url={item.snippet.thumbnails.medium.url}
+              />
+            </Styled.VideoScreenshotContainer>
+          ))
+      )}
     </Styled.Container>
   );
 };

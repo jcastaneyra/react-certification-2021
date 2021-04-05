@@ -30,12 +30,12 @@ export default function reducer(state, action) {
       return {
         ...state,
         currentSession: action.payload.currentSession,
-      }
+      };
     case 'CLEAR_CURRENT_SESSION':
       return {
         ...state,
         currentSession: null,
-      }
+      };
 
     default:
       throw new Error('Unkown action');

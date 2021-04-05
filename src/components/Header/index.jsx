@@ -47,7 +47,7 @@ const Header = () => {
     dispatch({
       type: 'SHOW_LOGIN',
     });
-  }
+  };
 
   return (
     <Styled.Nav>

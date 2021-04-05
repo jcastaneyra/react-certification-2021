@@ -14,12 +14,12 @@ const Home = () => {
   return (
     <Styled.Container>
       <Header />
-      { showLogin ? <Login /> : "" }
+      {showLogin ? <Login /> : ''}
       <Switch>
         <Route exact path="/">
           <VideoList />
         </Route>
-        <Route path="/player/:videoId" >
+        <Route path="/player/:videoId">
           <VideoDetail />
         </Route>
       </Switch>

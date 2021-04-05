@@ -32,11 +32,11 @@ const Login = () => {
       const currentSession = await loginApi(username, password);
       console.log(currentSession);
       dispatch({
-          type: 'SET_CURRENT_SESSION',
-          payload: {
-              currentSession
-          }
-      })
+        type: 'SET_CURRENT_SESSION',
+        payload: {
+          currentSession,
+        },
+      });
       closeLogin();
     } catch (error) {
       setAuthError(true);
@@ -54,13 +54,13 @@ const Login = () => {
             placeholder="Username"
             value={username}
             onChange={updateUsername}
-          ></Styled.Input>
+          />
           <Styled.Input
             type="password"
             placeholder="Password"
             value={password}
             onChange={updatePassword}
-          ></Styled.Input>
+          />
           <Styled.Buttons>
             <Styled.Button onClick={closeLogin} href="#">
               Cancel
