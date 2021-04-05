@@ -12,6 +12,10 @@ const theme = {
     backgroundCard: '#fff',
     searchBackgroundColor: '#226691',
     searchPlaceholder: '#83bfe2',
+    button: '#1C5476',
+    buttonBackground: '#f1f1f1',
+    backgroundError: '#ffe0e0',
+    error: '#ba3939',
   },
   dark: {
     headerBackgroundColor: '#556cd6',
@@ -22,6 +26,10 @@ const theme = {
     backgroundCard: '#424242',
     searchBackgroundColor: '#627CF6',
     searchPlaceholder: '#A7B4F6',
+    button: '#2F8BC6',
+    buttonBackground: '#2A4E64',
+    backgroundError: '#5D1D1D',
+    error: '#EE8C8C',
   },
 };
 function AppThemeProvider({ children }) {

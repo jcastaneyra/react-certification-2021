@@ -2,8 +2,10 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  ${'' /* flex-direction: row; */}
+  ${'' /* flex-wrap: wrap; */}
+  height: 100%;
+  justify-content: center;
 `;
 
 const VideoContainer = styled.div`
