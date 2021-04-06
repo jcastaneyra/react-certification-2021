@@ -58,8 +58,8 @@ const Header = () => {
   const handleLogout = () => {
     dispatch({
       type: 'CLEAR_CURRENT_SESSION',
-    })
-  }
+    });
+  };
 
   return (
     <Styled.Nav>
@@ -113,29 +113,29 @@ const Header = () => {
             )}
           </Styled.IconTheme>
           <Styled.DropdownIcon>
-            { currentSession ? 
-            <Styled.ImgIcon src={currentSession.avatarUrl}/>
-            :
-            <Styled.Icon
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-              />
-            </Styled.Icon>
-            }
+            {currentSession ? (
+              <Styled.ImgIcon src={currentSession.avatarUrl} />
+            ) : (
+              <Styled.Icon
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                />
+              </Styled.Icon>
+            )}
             <Styled.Dropdown>
-              { currentSession ? 
+              {currentSession ? (
                 <Styled.Submenu onClick={handleLogout}>Logout</Styled.Submenu>
-              :
+              ) : (
                 <Styled.Submenu onClick={showLogin}>Login</Styled.Submenu>
-              }
+              )}
             </Styled.Dropdown>
           </Styled.DropdownIcon>
         </Styled.Controls>

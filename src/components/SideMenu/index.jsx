@@ -22,11 +22,7 @@ const SideMenu = () => {
         <Styled.MenuLink onClick={closeMenu} to="/">
           Home
         </Styled.MenuLink>
-        {currentSession ? (
-          <Styled.MenuLink onClick={closeMenu} to="/favorites"></Styled.MenuLink>
-        ) : (
-          ''
-        )}
+        {currentSession ? <Styled.MenuLink onClick={closeMenu} to="/favorites" /> : ''}
       </Styled.Container>
     </>
   );

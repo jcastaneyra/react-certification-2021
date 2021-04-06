@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useReducer } from 'react';
 import reducer from './SearchReducer';
 
-const youtubeSession  = JSON.parse(localStorage.getItem("youtubeSession"))
+const youtubeSession = JSON.parse(localStorage.getItem('youtubeSession'));
 
 let initState = {
   videos: [],
@@ -11,12 +11,16 @@ let initState = {
   showLogin: false,
   showMenu: false,
   currentSession: null,
-  favoriteVideos: []
+  favoriteVideos: [],
 };
 
-if(youtubeSession) {
+if (youtubeSession) {
   const { currentSession, favoriteVideos } = youtubeSession;
-  initState = {...initState, currentSession: currentSession, favoriteVideos: favoriteVideos }
+  initState = {
+    ...initState,
+    currentSession,
+    favoriteVideos,
+  };
 }
 
 console.log(initState);
