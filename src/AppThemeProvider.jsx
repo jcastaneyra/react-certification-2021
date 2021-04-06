@@ -16,6 +16,7 @@ const theme = {
     buttonBackground: '#f1f1f1',
     backgroundError: '#ffe0e0',
     error: '#ba3939',
+    linkBackgroundHover: 'rgba(0, 0, 0, 0.04)',
   },
   dark: {
     headerBackgroundColor: '#556cd6',
@@ -30,6 +31,7 @@ const theme = {
     buttonBackground: '#2A4E64',
     backgroundError: '#5D1D1D',
     error: '#EE8C8C',
+    linkBackgroundHover: 'rgba(255, 255, 255, 0.08);',
   },
 };
 function AppThemeProvider({ children }) {

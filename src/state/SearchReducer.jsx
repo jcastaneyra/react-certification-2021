@@ -26,12 +26,30 @@ export default function reducer(state, action) {
         ...state,
         showLogin: false,
       };
+    case 'SHOW_MENU':
+      return {
+        ...state,
+        showMenu: true,
+      };
+    case 'CLOSE_MENU':
+      return {
+        ...state,
+        showMenu: false,
+      };
     case 'SET_CURRENT_SESSION':
+      localStorage.setItem(
+        'youtubeSession',
+        JSON.stringify({
+          currentSession: action.payload.currentSession,
+          favoriteVideos: [],
+        })
+      );
       return {
         ...state,
         currentSession: action.payload.currentSession,
       };
     case 'CLEAR_CURRENT_SESSION':
+      localStorage.removeItem('youtubeSession');
       return {
         ...state,
         currentSession: null,

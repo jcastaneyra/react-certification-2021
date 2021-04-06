@@ -6,6 +6,7 @@ import VideoList from '../VideoList';
 import VideoDetail from '../VideoDetail';
 import { useSearch } from '../../state/SearchProvider';
 import Login from '../Login';
+import SideMenu from '../SideMenu';
 
 const Home = () => {
   const { state } = useSearch();
@@ -14,6 +15,7 @@ const Home = () => {
   return (
     <Styled.Container>
       <Header />
+      <SideMenu />
       {showLogin ? <Login /> : ''}
       <Switch>
         <Route exact path="/">
@@ -21,6 +23,9 @@ const Home = () => {
         </Route>
         <Route path="/player/:videoId">
           <VideoDetail />
+        </Route>
+        <Route path="/favorites">
+          <VideoList />
         </Route>
       </Switch>
     </Styled.Container>

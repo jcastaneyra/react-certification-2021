@@ -48,6 +48,15 @@ const Icon = styled.svg`
   }
 `;
 
+const ImgIcon = styled.img`
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 const IconTheme = styled(Icon)`
   margin-right: 2em;
 `;
@@ -86,7 +95,7 @@ const Submenu = styled.a`
   text-align: left;
   &:hover {
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.08);
+    background-color: ${(props) => props.theme.linkBackgroundHover};
     border-radius: 5px;
   }
 `;
@@ -98,6 +107,7 @@ const Styled = {
   NavSearch,
   Controls,
   Icon,
+  ImgIcon,
   IconTheme,
   NavToggle,
   Dropdown,

@@ -1,14 +1,25 @@
 import React, { createContext, useContext, useReducer } from 'react';
 import reducer from './SearchReducer';
 
-const initState = {
+const youtubeSession  = JSON.parse(localStorage.getItem("youtubeSession"))
+
+let initState = {
   videos: [],
   selectedVideo: null,
   firstLoad: true,
   currentTheme: 'light',
   showLogin: false,
+  showMenu: false,
   currentSession: null,
+  favoriteVideos: []
 };
+
+if(youtubeSession) {
+  const { currentSession, favoriteVideos } = youtubeSession;
+  initState = {...initState, currentSession: currentSession, favoriteVideos: favoriteVideos }
+}
+
+console.log(initState);
 
 const SearchContext = createContext();
 

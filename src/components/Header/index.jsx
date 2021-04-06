@@ -6,7 +6,7 @@ import { useSearch } from '../../state/SearchProvider';
 const Header = () => {
   const { state, dispatch } = useSearch();
   const [search, setSearch] = React.useState('');
-  const { currentTheme } = state;
+  const { currentTheme, currentSession } = state;
 
   const callSearch = useCallback(
     async (searchTerm) => {
@@ -49,6 +49,18 @@ const Header = () => {
     });
   };
 
+  const showMenu = () => {
+    dispatch({
+      type: 'SHOW_MENU',
+    });
+  };
+
+  const handleLogout = () => {
+    dispatch({
+      type: 'CLEAR_CURRENT_SESSION',
+    })
+  }
+
   return (
     <Styled.Nav>
       <Styled.NavContainer>
@@ -58,6 +70,7 @@ const Header = () => {
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
+            onClick={showMenu}
           >
             <path
               strokeLinecap="round"
@@ -100,6 +113,9 @@ const Header = () => {
             )}
           </Styled.IconTheme>
           <Styled.DropdownIcon>
+            { currentSession ? 
+            <Styled.ImgIcon src={currentSession.avatarUrl}/>
+            :
             <Styled.Icon
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -113,8 +129,13 @@ const Header = () => {
                 d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
               />
             </Styled.Icon>
+            }
             <Styled.Dropdown>
-              <Styled.Submenu onClick={showLogin}>Login</Styled.Submenu>
+              { currentSession ? 
+                <Styled.Submenu onClick={handleLogout}>Logout</Styled.Submenu>
+              :
+                <Styled.Submenu onClick={showLogin}>Login</Styled.Submenu>
+              }
             </Styled.Dropdown>
           </Styled.DropdownIcon>
         </Styled.Controls>

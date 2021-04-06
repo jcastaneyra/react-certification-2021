@@ -54,6 +54,7 @@ const Login = () => {
             placeholder="Username"
             value={username}
             onChange={updateUsername}
+            autoFocus
           />
           <Styled.Input
             type="password"
