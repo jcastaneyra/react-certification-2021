@@ -17,15 +17,12 @@ const VideoList = ({ videos, emptyMessage = 'No result videos' }) => {
     });
   };
 
-  return (
-    <Styled.Container data-testid="content">
-      {/* eslint-disable no-nested-ternary */}
-      {loading ? (
-        <LoadingSpinner />
-      ) : videos.length === 0 ? (
+  const showVideoList = (videoList) => {
+    return (
+      videoList.length === 0 ? (
         <Styled.Error> {emptyMessage} </Styled.Error>
       ) : (
-        videos
+        videoList
           .filter((item) => item.snippet)
           .map((item) =>
             item.id.videoId ? { ...item, id: item.id.videoId } : { ...item }
@@ -41,7 +38,18 @@ const VideoList = ({ videos, emptyMessage = 'No result videos' }) => {
               />
             </Styled.VideoScreenshotContainer>
           ))
-      )}
+      )
+    )
+  }
+
+  return (
+    <Styled.Container data-testid="content">
+      {/* eslint-disable no-nested-ternary */}
+      {loading ? (
+        <LoadingSpinner />
+      ) : 
+        showVideoList(videos)
+      }
     </Styled.Container>
   );
 };

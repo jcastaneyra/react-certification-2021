@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Switch, Route, Redirect } from 'react-router';
+import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Styled from './styled';
 import Header from '../Header';
 import VideoList from '../VideoList';
@@ -43,25 +43,27 @@ const Home = () => {
   };
 
   return (
-    <Styled.Container>
-      <Header />
-      <SideMenu />
-      {showLogin ? <Login /> : ''}
-      <Switch>
-        <Route exact path="/">
-          <VideoList videos={videos} />
-        </Route>
-        <Route path="/player/:videoId">
-          <VideoDetail />
-        </Route>
-        <PrivateRoute path="/favorites">
-          <VideoList
-            videos={favoriteVideos}
-            emptyMessage="You haven't added any videos to your favorites yet"
-          />
-        </PrivateRoute>
-      </Switch>
-    </Styled.Container>
+    <HashRouter>
+      <Styled.Container>
+        <Header />
+        <SideMenu />
+        {showLogin ? <Login /> : ''}
+        <Switch>
+          <Route exact path="/">
+            <VideoList videos={videos} />
+          </Route>
+          <Route path="/player/:videoId">
+            <VideoDetail />
+          </Route>
+          <PrivateRoute path="/favorites">
+            <VideoList
+              videos={favoriteVideos}
+              emptyMessage="You haven't added any videos to your favorites yet"
+            />
+          </PrivateRoute>
+        </Switch>
+      </Styled.Container>
+    </HashRouter>
   );
 };
 

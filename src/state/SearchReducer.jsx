@@ -12,10 +12,12 @@ export default function reducer(state, action) {
         selectedVideo: action.payload.selectedVideo,
       };
     case 'TOGGLE_THEME':
-      localStorage.setItem(
-        `${state.currentSession.id}#theme`,
-        JSON.stringify(state.currentTheme === 'light' ? 'dark' : 'light')
-      );
+      if (state.currentSession) {
+        localStorage.setItem(
+          `${state.currentSession.id}#theme`,
+          JSON.stringify(state.currentTheme === 'light' ? 'dark' : 'light')
+        );
+      }
       return {
         ...state,
         currentTheme: state.currentTheme === 'light' ? 'dark' : 'light',

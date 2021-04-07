@@ -5,6 +5,7 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   padding: 0px 50px;
+  justify-content: space-evenly;
 `;
 
 const VideoScreenshotContainer = styled.div`
