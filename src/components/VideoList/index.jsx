@@ -18,38 +18,30 @@ const VideoList = ({ videos, emptyMessage = 'No result videos' }) => {
   };
 
   const showVideoList = (videoList) => {
-    return (
-      videoList.length === 0 ? (
-        <Styled.Error> {emptyMessage} </Styled.Error>
-      ) : (
-        videoList
-          .filter((item) => item.snippet)
-          .map((item) =>
-            item.id.videoId ? { ...item, id: item.id.videoId } : { ...item }
-          )
-          .map((item) => (
-            <Styled.VideoScreenshotContainer key={item.id}>
-              <VideoCard
-                to={`/player/${item.id}`}
-                onClick={() => showVideoDetail(item)}
-                title={item.snippet.title}
-                description={item.snippet.description}
-                url={item.snippet.thumbnails.medium.url}
-              />
-            </Styled.VideoScreenshotContainer>
-          ))
-      )
-    )
-  }
+    return videoList.length === 0 ? (
+      <Styled.Error> {emptyMessage} </Styled.Error>
+    ) : (
+      videoList
+        .filter((item) => item.snippet)
+        .map((item) => (item.id.videoId ? { ...item, id: item.id.videoId } : { ...item }))
+        .map((item) => (
+          <Styled.VideoScreenshotContainer key={item.id}>
+            <VideoCard
+              to={`/player/${item.id}`}
+              onClick={() => showVideoDetail(item)}
+              title={item.snippet.title}
+              description={item.snippet.description}
+              url={item.snippet.thumbnails.medium.url}
+            />
+          </Styled.VideoScreenshotContainer>
+        ))
+    );
+  };
 
   return (
     <Styled.Container data-testid="content">
       {/* eslint-disable no-nested-ternary */}
-      {loading ? (
-        <LoadingSpinner />
-      ) : 
-        showVideoList(videos)
-      }
+      {loading ? <LoadingSpinner /> : showVideoList(videos)}
     </Styled.Container>
   );
 };
