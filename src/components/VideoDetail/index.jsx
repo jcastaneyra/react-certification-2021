@@ -8,12 +8,15 @@ import LoadingSpinner from '../LoadingSpinner';
 
 const VideoDetail = () => {
   const { state, dispatch } = useSearch();
-  const { videos, selectedVideo } = state;
+  const { videos, selectedVideo, loading, currentSession, favoriteVideos } = state;
   const { videoId } = useParams();
 
   const callSearchById = useCallback(
     async (videoIdParam) => {
-      const [video, error] = await youtubeGetVideoByID(videoIdParam);
+      dispatch({ type: 'START_LOADING' });
+      const [result, error] = await youtubeGetVideoByID(videoIdParam);
+      const [video, ...rest] = result.items;
+      console.log(rest);
       if (!error) {
         dispatch({
           type: 'SET_SELECTED_VIDEO',
@@ -22,6 +25,7 @@ const VideoDetail = () => {
           },
         });
       }
+      dispatch({ type: 'STOP_LOADING' });
     },
     [dispatch]
   );
@@ -33,7 +37,7 @@ const VideoDetail = () => {
         dispatch({
           type: 'ADD_VIDEOS',
           payload: {
-            videos: result,
+            videos: result.items,
           },
         });
       }
@@ -45,13 +49,10 @@ const VideoDetail = () => {
     if (!selectedVideo) {
       callSearchById(videoId);
     }
-  }, [selectedVideo, callSearchById, videoId]);
-
-  React.useEffect(() => {
     if (videos.length === 0) {
       callSearchByRelated(videoId);
     }
-  }, [videos, callSearchByRelated, videoId]);
+  }, [videos, selectedVideo, callSearchById, callSearchByRelated, videoId]);
 
   const showVideoDetail = (item) => {
     dispatch({
@@ -62,27 +63,68 @@ const VideoDetail = () => {
     });
   };
 
+  const addToFavorite = useCallback((video) => {
+    dispatch({
+      type: 'ADD_TO_FAVORITE',
+      payload: {
+        video,
+      },
+    });
+  }, [dispatch]);
+
+  const removeFromFavorite = useCallback((video) => {
+    dispatch({
+      type: 'REMOVE_FROM_FAVORITE',
+      payload: {
+        video,
+      },
+    });
+  }, [dispatch]);
+
+  const getFavoriteButton = () => {
+    if (currentSession) {
+      const favoriteExist = favoriteVideos.filter((item) => item.id === selectedVideo.id);
+      return favoriteExist.length > 0 ? (
+        <Styled.FavoriteButton href="#" onClick={() => removeFromFavorite(selectedVideo)}>
+          Remove from favorite
+        </Styled.FavoriteButton>
+      ) : (
+        <Styled.FavoriteButton
+          href="#"
+          onClick={() => addToFavorite(selectedVideo)}
+        >
+          Add to favorite
+        </Styled.FavoriteButton>
+      );
+    }
+  };
+
   return (
     <Styled.Container data-testid="videoDetail">
-      {selectedVideo ? (
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
         <>
-          <Styled.VideoContainer>
-            <Styled.VideoPlayerContainer>
-              <Styled.VideoPlayer
-                height="315"
-                width="560"
-                src={`https://www.youtube.com/embed/${selectedVideo.id}`}
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                title="selectedVideo.snippet.title"
-              />
-            </Styled.VideoPlayerContainer>
-            <Styled.Title>{selectedVideo.snippet.title}</Styled.Title>
-            <Styled.Description>
-              <p>{selectedVideo.snippet.description}</p>
-            </Styled.Description>
-          </Styled.VideoContainer>
+          {selectedVideo && (
+            <Styled.VideoContainer>
+              <Styled.VideoPlayerContainer>
+                <Styled.VideoPlayer
+                  height="315"
+                  width="560"
+                  src={`https://www.youtube.com/embed/${selectedVideo.id}`}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  title="selectedVideo.snippet.title"
+                />
+              </Styled.VideoPlayerContainer>
+              <Styled.Title>{selectedVideo.snippet.title}</Styled.Title>
+              {getFavoriteButton()}
+              <Styled.Description>
+                <p>{selectedVideo.snippet.description}</p>
+              </Styled.Description>
+            </Styled.VideoContainer>
+          )}
           <Styled.Side>
             {videos
               .map((item) =>
@@ -101,8 +143,6 @@ const VideoDetail = () => {
               ))}
           </Styled.Side>
         </>
-      ) : (
-        <LoadingSpinner />
       )}
     </Styled.Container>
   );

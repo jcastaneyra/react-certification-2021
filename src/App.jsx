@@ -4,7 +4,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Home from './components/Home';
 import SearchProvider from './state/SearchProvider';
 import AppThemeProvider from './AppThemeProvider';
-// import { createBrowserHistory } from 'history';
 
 const GlobalStyles = createGlobalStyle`
   *{
@@ -12,11 +11,13 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     box-sizing: inherit;
     font-family: Roboto, sans-serif;
-    ${(props) => props.theme.contentBackgroundColor};
+  }
+
+  #root {
+    background-color: ${(props) => props.theme.contentBackgroundColor};
+    height: 100vh;
   }
 `;
-
-// const history = createBrowserHistory();
 
 export default function App() {
   return (

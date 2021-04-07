@@ -2,9 +2,6 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   display: flex;
-  ${'' /* flex-direction: row; */}
-  ${'' /* flex-wrap: wrap; */}
-  height: 100%;
   justify-content: center;
 `;
 
@@ -14,8 +11,8 @@ const VideoContainer = styled.div`
   border-radius: 5px;
   margin: 30px;
   width: 70%;
-  height: 70%;
   flex: 70%;
+  height: 70%;
 
   @media screen and (max-width: 1024px) {
     width: 90%;
@@ -26,8 +23,9 @@ const VideoPlayerContainer = styled.div`
   overflow: hidden;
   padding-bottom: 56.25%;
   position: relative;
-  height: 0;
+  height: 100%;
 `;
+
 const VideoPlayer = styled.iframe`
   left: 0;
   top: 0;
@@ -45,20 +43,16 @@ const Side = styled.div`
   }
 `;
 const VideoScreenshotContainer = styled.div`
-  ${'' /* width: 20%; */}
-
   @media screen and (max-width: 1219px) {
-    ${'' /* width: 30%; */}
-    width: 40%;
+    width: 80%;
   }
 
   @media screen and (max-width: 1024px) {
-    width: 40%;
+    width: 80%;
   }
 
   @media screen and (max-width: 600px) {
-    ${'' /* width: 80%; */}
-    width: 40%;
+    width: 70%;
   }
 `;
 
@@ -87,6 +81,19 @@ const Description = styled.div`
   color: ${(props) => props.theme.descColor};
 `;
 
+const FavoriteButton = styled.a`
+  padding: 10px;
+  text-decoration: none;
+  color: ${(props) => props.theme.button};
+  text-transform: uppercase;
+  float: right;
+  margin-right: 10px;
+  &:hover {
+    background-color: ${(props) => props.theme.buttonBackground};
+    border-radius: 5px;
+  }
+`;
+
 const Styled = {
   Container,
   VideoContainer,
@@ -97,5 +104,6 @@ const Styled = {
   VideoPlayer,
   Side,
   VideoScreenshotContainer,
+  FavoriteButton,
 };
 export default Styled;

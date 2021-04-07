@@ -7,6 +7,7 @@ let initState = {
   videos: [],
   selectedVideo: null,
   firstLoad: true,
+  loading: false,
   currentTheme: 'light',
   showLogin: false,
   showMenu: false,
@@ -15,15 +16,15 @@ let initState = {
 };
 
 if (youtubeSession) {
-  const { currentSession, favoriteVideos } = youtubeSession;
+  const sessionFavorites = JSON.parse(localStorage.getItem(`${youtubeSession.currentSession.id}#favoriteVideos`))
+  const sessionTheme = JSON.parse(localStorage.getItem(`${youtubeSession.currentSession.id}#theme`))
   initState = {
     ...initState,
-    currentSession,
-    favoriteVideos,
+    currentSession: youtubeSession.currentSession,
+    favoriteVideos: sessionFavorites ? sessionFavorites.favoriteVideos : [],
+    currentTheme: sessionTheme ? sessionTheme : 'light',
   };
 }
-
-console.log(initState);
 
 const SearchContext = createContext();
 

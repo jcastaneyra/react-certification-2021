@@ -4,7 +4,6 @@ const Container = styled.div`
   background-color: ${(props) => props.theme.contentBackgroundColor};
   display: block;
   overflow: auto;
-  height: 1900px;
 `;
 
 const Spinner = styled.svg`

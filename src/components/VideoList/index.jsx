@@ -1,31 +1,12 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import VideoCard from '../VideoCard';
 import Styled from './styled';
 import { useSearch } from '../../state/SearchProvider';
-import { youtubeList } from '../../apis/youtube';
 import LoadingSpinner from '../LoadingSpinner';
 
-const Content = () => {
+const VideoList = ({ videos, emptyMessage = 'No result videos' }) => {
   const { state, dispatch } = useSearch();
-  const { videos, firstLoad } = state;
-
-  const callYoutubeList = useCallback(async () => {
-    const [result, error] = await youtubeList();
-    if (!error) {
-      dispatch({
-        type: 'ADD_VIDEOS',
-        payload: {
-          videos: result,
-        },
-      });
-    }
-  }, [dispatch]);
-
-  React.useEffect(() => {
-    if (firstLoad) {
-      callYoutubeList();
-    }
-  }, [firstLoad, callYoutubeList]);
+  const { loading } = state;
 
   const showVideoDetail = (item) => {
     dispatch({
@@ -38,10 +19,14 @@ const Content = () => {
 
   return (
     <Styled.Container data-testid="content">
-      {videos.length === 0 ? (
+      {/* eslint-disable no-nested-ternary */}
+      {loading ? (
         <LoadingSpinner />
+      ) : (videos.length === 0 ? (
+        <Styled.Error> {emptyMessage} </Styled.Error>
       ) : (
         videos
+          .filter((item) => item.snippet )
           .map((item) =>
             item.id.videoId ? { ...item, id: item.id.videoId } : { ...item }
           )
@@ -56,9 +41,9 @@ const Content = () => {
               />
             </Styled.VideoScreenshotContainer>
           ))
-      )}
+      ))}
     </Styled.Container>
   );
 };
 
-export default Content;
+export default VideoList;

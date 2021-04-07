@@ -7,7 +7,6 @@ const SideMenu = () => {
   const { currentSession, showMenu } = state;
 
   const node = useRef();
-  console.log('Showing SideMenu');
 
   const closeMenu = () => {
     dispatch({
@@ -22,7 +21,7 @@ const SideMenu = () => {
         <Styled.MenuLink onClick={closeMenu} to="/">
           Home
         </Styled.MenuLink>
-        {currentSession ? <Styled.MenuLink onClick={closeMenu} to="/favorites" /> : ''}
+        {currentSession ? <Styled.MenuLink onClick={closeMenu} to="/favorites">Favorites</Styled.MenuLink> : ''}
       </Styled.Container>
     </>
   );

@@ -2,23 +2,28 @@ import React, { useCallback } from 'react';
 import Styled from './styled';
 import { youtubeSearch } from '../../apis/youtube';
 import { useSearch } from '../../state/SearchProvider';
+import { useHistory } from "react-router-dom";
+
 
 const Header = () => {
   const { state, dispatch } = useSearch();
   const [search, setSearch] = React.useState('');
   const { currentTheme, currentSession } = state;
+  const history = useHistory();
 
   const callSearch = useCallback(
     async (searchTerm) => {
-      const [videos, error] = await youtubeSearch(searchTerm);
+      dispatch({type: 'START_LOADING'});
+      const [result, error] = await youtubeSearch(searchTerm);
       if (!error) {
         dispatch({
           type: 'ADD_VIDEOS',
           payload: {
-            videos,
+            videos: result.items,
           },
         });
       }
+      dispatch({type: 'STOP_LOADING'});
     },
     [dispatch]
   );
@@ -28,13 +33,13 @@ const Header = () => {
       event.preventDefault();
       console.log('calling search with', search);
       callSearch(search);
+      history.push("/");
     }
   };
 
   const updateSearch = (event) => {
     event.preventDefault();
     setSearch(event.target.value);
-    console.log(search);
   };
 
   const toggleTheme = () => {
@@ -59,6 +64,7 @@ const Header = () => {
     dispatch({
       type: 'CLEAR_CURRENT_SESSION',
     });
+    history.push("/");
   };
 
   return (
