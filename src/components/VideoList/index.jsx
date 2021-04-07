@@ -22,11 +22,11 @@ const VideoList = ({ videos, emptyMessage = 'No result videos' }) => {
       {/* eslint-disable no-nested-ternary */}
       {loading ? (
         <LoadingSpinner />
-      ) : (videos.length === 0 ? (
+      ) : videos.length === 0 ? (
         <Styled.Error> {emptyMessage} </Styled.Error>
       ) : (
         videos
-          .filter((item) => item.snippet )
+          .filter((item) => item.snippet)
           .map((item) =>
             item.id.videoId ? { ...item, id: item.id.videoId } : { ...item }
           )
@@ -41,7 +41,7 @@ const VideoList = ({ videos, emptyMessage = 'No result videos' }) => {
               />
             </Styled.VideoScreenshotContainer>
           ))
-      ))}
+      )}
     </Styled.Container>
   );
 };

@@ -97,12 +97,16 @@ export default function reducer(state, action) {
       localStorage.setItem(
         `${state.currentSession.id}#favoriteVideos`,
         JSON.stringify({
-          favoriteVideos: state.favoriteVideos.filter((item) => item.id !== action.payload.video.id)
+          favoriteVideos: state.favoriteVideos.filter(
+            (item) => item.id !== action.payload.video.id
+          ),
         })
       );
       return {
         ...state,
-        favoriteVideos: state.favoriteVideos.filter((item) => item.id !== action.payload.video.id),
+        favoriteVideos: state.favoriteVideos.filter(
+          (item) => item.id !== action.payload.video.id
+        ),
       };
 
     default:

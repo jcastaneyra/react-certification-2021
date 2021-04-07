@@ -1,9 +1,8 @@
 import React, { useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 import Styled from './styled';
 import { youtubeSearch } from '../../apis/youtube';
 import { useSearch } from '../../state/SearchProvider';
-import { useHistory } from "react-router-dom";
-
 
 const Header = () => {
   const { state, dispatch } = useSearch();
@@ -13,7 +12,7 @@ const Header = () => {
 
   const callSearch = useCallback(
     async (searchTerm) => {
-      dispatch({type: 'START_LOADING'});
+      dispatch({ type: 'START_LOADING' });
       const [result, error] = await youtubeSearch(searchTerm);
       if (!error) {
         dispatch({
@@ -23,7 +22,7 @@ const Header = () => {
           },
         });
       }
-      dispatch({type: 'STOP_LOADING'});
+      dispatch({ type: 'STOP_LOADING' });
     },
     [dispatch]
   );
@@ -33,7 +32,7 @@ const Header = () => {
       event.preventDefault();
       console.log('calling search with', search);
       callSearch(search);
-      history.push("/");
+      history.push('/');
     }
   };
 
@@ -64,7 +63,7 @@ const Header = () => {
     dispatch({
       type: 'CLEAR_CURRENT_SESSION',
     });
-    history.push("/");
+    history.push('/');
   };
 
   return (

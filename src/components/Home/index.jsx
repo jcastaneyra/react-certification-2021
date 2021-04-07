@@ -14,7 +14,7 @@ const Home = () => {
   const { showLogin, firstLoad, videos, favoriteVideos, currentSession } = state;
 
   const callYoutubeList = useCallback(async () => {
-    dispatch({type: 'START_LOADING'});
+    dispatch({ type: 'START_LOADING' });
     const [result, error] = await youtubeList();
     if (!error) {
       dispatch({
@@ -24,7 +24,7 @@ const Home = () => {
         },
       });
     }
-    dispatch({type: 'STOP_LOADING'});
+    dispatch({ type: 'STOP_LOADING' });
   }, [dispatch]);
 
   React.useEffect(() => {
@@ -32,16 +32,15 @@ const Home = () => {
       callYoutubeList();
     }
   }, [firstLoad, callYoutubeList]);
-   
+
   const PrivateRoute = ({ children, ...rest }) => {
     return (
-      <Route {...rest} render={() =>
-          currentSession ? (children) :
-          (<Redirect to={{ pathname: '/' }} />)
-        }
+      <Route
+        {...rest}
+        render={() => (currentSession ? children : <Redirect to={{ pathname: '/' }} />)}
       />
-    )
-  }
+    );
+  };
 
   return (
     <Styled.Container>
@@ -50,13 +49,16 @@ const Home = () => {
       {showLogin ? <Login /> : ''}
       <Switch>
         <Route exact path="/">
-          <VideoList videos={videos}/>
+          <VideoList videos={videos} />
         </Route>
         <Route path="/player/:videoId">
           <VideoDetail />
         </Route>
         <PrivateRoute path="/favorites">
-          <VideoList videos={favoriteVideos} emptyMessage="You haven't added any videos to your favorites yet"/>
+          <VideoList
+            videos={favoriteVideos}
+            emptyMessage="You haven't added any videos to your favorites yet"
+          />
         </PrivateRoute>
       </Switch>
     </Styled.Container>

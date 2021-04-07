@@ -16,13 +16,17 @@ let initState = {
 };
 
 if (youtubeSession) {
-  const sessionFavorites = JSON.parse(localStorage.getItem(`${youtubeSession.currentSession.id}#favoriteVideos`))
-  const sessionTheme = JSON.parse(localStorage.getItem(`${youtubeSession.currentSession.id}#theme`))
+  const sessionFavorites = JSON.parse(
+    localStorage.getItem(`${youtubeSession.currentSession.id}#favoriteVideos`)
+  );
+  const sessionTheme = JSON.parse(
+    localStorage.getItem(`${youtubeSession.currentSession.id}#theme`)
+  );
   initState = {
     ...initState,
     currentSession: youtubeSession.currentSession,
     favoriteVideos: sessionFavorites ? sessionFavorites.favoriteVideos : [],
-    currentTheme: sessionTheme ? sessionTheme : 'light',
+    currentTheme: sessionTheme || 'light',
   };
 }
 

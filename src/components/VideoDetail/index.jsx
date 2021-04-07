@@ -63,23 +63,29 @@ const VideoDetail = () => {
     });
   };
 
-  const addToFavorite = useCallback((video) => {
-    dispatch({
-      type: 'ADD_TO_FAVORITE',
-      payload: {
-        video,
-      },
-    });
-  }, [dispatch]);
+  const addToFavorite = useCallback(
+    (video) => {
+      dispatch({
+        type: 'ADD_TO_FAVORITE',
+        payload: {
+          video,
+        },
+      });
+    },
+    [dispatch]
+  );
 
-  const removeFromFavorite = useCallback((video) => {
-    dispatch({
-      type: 'REMOVE_FROM_FAVORITE',
-      payload: {
-        video,
-      },
-    });
-  }, [dispatch]);
+  const removeFromFavorite = useCallback(
+    (video) => {
+      dispatch({
+        type: 'REMOVE_FROM_FAVORITE',
+        payload: {
+          video,
+        },
+      });
+    },
+    [dispatch]
+  );
 
   const getFavoriteButton = () => {
     if (currentSession) {
@@ -89,10 +95,7 @@ const VideoDetail = () => {
           Remove from favorite
         </Styled.FavoriteButton>
       ) : (
-        <Styled.FavoriteButton
-          href="#"
-          onClick={() => addToFavorite(selectedVideo)}
-        >
+        <Styled.FavoriteButton href="#" onClick={() => addToFavorite(selectedVideo)}>
           Add to favorite
         </Styled.FavoriteButton>
       );
