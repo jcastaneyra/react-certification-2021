@@ -1,52 +1,44 @@
 import React, { useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 import Styled from './styled';
-import youtubeSearch from '../../apis/youtube';
-import useDebounce from '../../hooks/useDebounce';
+import { youtubeSearch } from '../../apis/youtube';
 import { useSearch } from '../../state/SearchProvider';
 
 const Header = () => {
   const { state, dispatch } = useSearch();
   const [search, setSearch] = React.useState('');
-  const { currentTheme } = state;
-  const debouncedSearchTerm = useDebounce(search, 500);
+  const { currentTheme, currentSession } = state;
+  const history = useHistory();
 
   const callSearch = useCallback(
     async (searchTerm) => {
-      let counter = 0;
-      while (!gapi || (!gapi.client && counter < 10)) {
-        counter++;
-        await new Promise((resolve) => setTimeout(resolve, 100));
-      }
-      /* global gapi */
-      /* eslint no-undef: "error" */
-      if (!gapi || !gapi.client || counter >= 10) {
+      dispatch({ type: 'START_LOADING' });
+      const [result, error] = await youtubeSearch(searchTerm);
+      if (!error) {
         dispatch({
           type: 'ADD_VIDEOS',
-          payload: [],
+          payload: {
+            videos: result.items,
+          },
         });
-      } else {
-        const [videos, error] = await youtubeSearch(searchTerm);
-        if (!error) {
-          dispatch({
-            type: 'ADD_VIDEOS',
-            payload: {
-              videos,
-            },
-          });
-        }
       }
+      dispatch({ type: 'STOP_LOADING' });
     },
     [dispatch]
   );
 
-  React.useEffect(() => {
-    callSearch(debouncedSearchTerm);
-  }, [debouncedSearchTerm, callSearch]);
-
   const handleSearch = (event) => {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      console.log('calling search with', search);
+      callSearch(search);
+      history.push('/');
+    }
+  };
+
+  const updateSearch = (event) => {
     event.preventDefault();
     setSearch(event.target.value);
-    console.log(search);
   };
 
   const toggleTheme = () => {
@@ -54,6 +46,26 @@ const Header = () => {
       type: 'TOGGLE_THEME',
     });
   };
+
+  const showLogin = () => {
+    dispatch({
+      type: 'SHOW_LOGIN',
+    });
+  };
+
+  const showMenu = () => {
+    dispatch({
+      type: 'SHOW_MENU',
+    });
+  };
+
+  const handleLogout = () => {
+    dispatch({
+      type: 'CLEAR_CURRENT_SESSION',
+    });
+    history.push('/');
+  };
+
   return (
     <Styled.Nav>
       <Styled.NavContainer>
@@ -63,6 +75,7 @@ const Header = () => {
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
+            onClick={showMenu}
           >
             <path
               strokeLinecap="round"
@@ -75,7 +88,8 @@ const Header = () => {
             type="text"
             placeholder="Search ..."
             value={search}
-            onChange={handleSearch}
+            onChange={updateSearch}
+            onKeyUp={handleSearch}
           />
         </Styled.NavMenu>
 
@@ -103,20 +117,32 @@ const Header = () => {
               />
             )}
           </Styled.IconTheme>
-
-          <Styled.Icon
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-            />
-          </Styled.Icon>
+          <Styled.DropdownIcon>
+            {currentSession ? (
+              <Styled.ImgIcon src={currentSession.avatarUrl} />
+            ) : (
+              <Styled.Icon
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                />
+              </Styled.Icon>
+            )}
+            <Styled.Dropdown>
+              {currentSession ? (
+                <Styled.Submenu onClick={handleLogout}>Logout</Styled.Submenu>
+              ) : (
+                <Styled.Submenu onClick={showLogin}>Login</Styled.Submenu>
+              )}
+            </Styled.Dropdown>
+          </Styled.DropdownIcon>
         </Styled.Controls>
       </Styled.NavContainer>
     </Styled.Nav>

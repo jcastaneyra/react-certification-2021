@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   border: ${(props) => props.theme.borderCard};
@@ -31,7 +32,16 @@ const Description = styled.div`
   font-weight: 500;
   padding: 15px;
   color: ${(props) => props.theme.descColor};
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
 `;
 
-const Styled = { Container, Img, Title, Description };
+const VideoLink = styled(Link)`
+  text-decoration: none;
+`;
+
+const Styled = { Container, Img, Title, Description, VideoLink };
 export default Styled;

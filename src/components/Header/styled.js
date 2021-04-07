@@ -36,12 +36,22 @@ const NavSearch = styled.input`
 
 const Controls = styled.div`
   margin: 1em;
+  display: flex;
 `;
 
 const Icon = styled.svg`
   width: 24px;
   height: 24px;
 
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const ImgIcon = styled.img`
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
   &:hover {
     cursor: pointer;
   }
@@ -61,6 +71,35 @@ const NavToggle = styled.div`
   }
 `;
 
+const Dropdown = styled.div`
+  display: none;
+  position: absolute;
+  background-color: ${(props) => props.theme.backgroundCard};
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  right: 2.5rem;
+  border-radius: 5px;
+`;
+const DropdownIcon = styled.div`
+  &:hover ${Dropdown} {
+    display: block;
+  }
+`;
+
+const Submenu = styled.a`
+  color: ${(props) => props.theme.titleColor};
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  &:hover {
+    cursor: pointer;
+    background-color: ${(props) => props.theme.linkBackgroundHover};
+    border-radius: 5px;
+  }
+`;
+
 const Styled = {
   Nav,
   NavContainer,
@@ -68,7 +107,11 @@ const Styled = {
   NavSearch,
   Controls,
   Icon,
+  ImgIcon,
   IconTheme,
   NavToggle,
+  Dropdown,
+  DropdownIcon,
+  Submenu,
 };
 export default Styled;

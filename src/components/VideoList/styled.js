@@ -4,25 +4,36 @@ const Container = styled.div`
   margin-top: 25px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
   padding: 0px 50px;
+  justify-content: space-evenly;
 `;
 
 const VideoScreenshotContainer = styled.div`
   width: 20%;
 
   @media screen and (max-width: 1400px) {
-    width: 30%;
+    width: 33%;
   }
 
   @media screen and (max-width: 1024px) {
-    width: 40%;
+    width: 50%;
   }
 
   @media screen and (max-width: 600px) {
-    width: 80%;
+    width: 100%;
   }
 `;
 
-const Styled = { Container, VideoScreenshotContainer };
+const Error = styled.div`
+  margin: 20px 20px;
+  padding: 10px;
+  background: ${(props) => props.theme.backgroundError};
+  border: 1px solid #a33a3a;
+  color: ${(props) => props.theme.error};
+  border-radius: 5px;
+  height: 20px;
+  width: 100%;
+`;
+
+const Styled = { Container, VideoScreenshotContainer, Error };
 export default Styled;
