@@ -7,7 +7,8 @@ const Container = styled.div`
 `;
 
 const VideoContainer = styled.div`
-  border: 1px solid #cccccc;
+  border: ${(props) => props.theme.borderCard};
+  background-color: ${(props) => props.theme.backgroundCard};
   border-radius: 5px;
   margin: 30px;
   width: 70%;
@@ -73,6 +74,7 @@ const Title = styled.div`
   font-weight: 500;
   letter-spacing: 0.0075em;
   margin: 5px 15px;
+  color: ${(props) => props.theme.titleColor};
 `;
 
 const Description = styled.div`
@@ -80,7 +82,7 @@ const Description = styled.div`
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   font-weight: 500;
   padding: 15px;
-  color: rgba(0, 0, 0, 0.54);
+  color: ${(props) => props.theme.descColor};
 `;
 
 const Styled = {
